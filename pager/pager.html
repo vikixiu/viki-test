@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>scroll</title>
+<style>
+
+</style>
+</head>
+<body style="" >
+aaa
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+
+jQuery(document).ready(function(){
+	var pageNum = 9;
+	
+	function getQueryStringByName(name){
+		var result = location.search.match(new RegExp("[\?\&]" + name+ "=([^\&]+)","i"));
+		if(result == null || result.length < 1){
+		return null;
+		}
+		return result[1];
+	}
+	var currentPage = getQueryStringByName('p') ? Number(getQueryStringByName('p')) : 1,
+		totalPage = Math.ceil(newsJson.length/pageNum),
+		startPage = currentPage > 2 ? currentPage - 2 : 1,
+		endPage = currentPage - 0 + 2 < totalPage ? currentPage + 2 : totalPage;
+		
+	if (currentPage != 1) {
+		pagerList.push('<li class="txt txt_left"><a class="previous" title="Previous" href="/aboutus/cms_glsnews?p=' + (currentPage - 1) + '">上一页</a></li>');
+	}
+	if (startPage >= 3){
+		pagerList.push('<li class="number"><a href="/aboutus/cms_glsnews?p=1">1</a></li>');
+		if (startPage != 3) {	
+		pagerList.push('<li class="number"><a href="/aboutus/cms_glsnews?p=' + (Math.round(currentPage/3) + 1) + '">...</a></li>');
+		}
+	}
+	
+	for (var i=startPage; i<endPage - 0 + 1; i++){		
+		if ( i == currentPage ) {
+			pagerList.push('<li class="number current">' + i + '</li>');
+		} else {
+			pagerList.push('<li class="number"><a href="/aboutus/cms_glsnews?p=' + i + '">' + i + '</a></li>');
+		}
+	}
+	if (totalPage - 3 >= endPage){	
+		if (totalPage - 3 != endPage){
+			pagerList.push('<li class="number"><a href="/aboutus/cms_glsnews?p=' + (totalPage - Math.round(currentPage/3)) + '">...</a></li>');
+		}
+		pagerList.push('<li class="number"><a href="/aboutus/cms_glsnews?p=' + totalPage + '">' + totalPage + '</a></li>');
+	}
+	if (currentPage != totalPage) {
+		pagerList.push('<li class="txt txt_right"><a class="next" title="Next" href="/aboutus/cms_glsnews?p=' + (currentPage - 0 + 1) + '">下一页</a></li>');
+	}
+	jQuery('.pager .pages ol').append(pagerList.join(''));
+	
+	function showNews(pager){
+		newsList = [];
+		var currentLength = pageNum * pager > newsJson.length ? newsJson.length : pageNum * pager;
+		for (var i = pageNum * (pager - 1); i<currentLength; i++){ 
+			var _news = newsJson[i];
+			newsList.push('<li><a href="' + _news.href + '" target="_blank"><img src="' + _news.src + '" alt="" /><br/>' + _news.title + '<br/>' + _news.date + '</a></li>');
+		}
+		
+		jQuery('.newsList').append(newsList.join(''));
+	}
+	showNews(currentPage);
+	
+});	
+
+
+//]]>
+</script>    
+</body>
+</html>		
