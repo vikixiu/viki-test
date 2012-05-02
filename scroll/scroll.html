@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>scroll</title>
+<style>
+
+</style>
+</head>
+<body style="" >
+aaa
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+
+jQuery('.upcomingNav a').bind('click',function(e){
+			var $this = jQuery(this), i = $this.index('.upcomingNav a'), $ul = jQuery('.upcomingWrap section ul:eq(' + i +')'); 
+			var wrapHeight = 380;
+			jQuery('.upcomingNav a').removeClass('selected');
+			jQuery(this).addClass('selected');
+			jQuery('.upcomingWrap section ul').addClass('hide');
+			$ul.removeClass('hide');
+			if ($ul.height() > wrapHeight){
+				/*jQuery('.upcomingEvent section').addClass('upcoming-scroll')
+					.append('<div class="scrollContainer"><div class="scrollBlock">&#160;</div></div>');
+				jQuery('.scrollBlock').height(wrapHeight*wrapHeight/$ul.height());	*/
+				upcomingScroll(true);
+			}else{
+				/*jQuery('.upcomingEvent section').removeClass('upcoming-scroll')
+					.remove('<div class="scrollContainer"><div class="scrollBlock">&#160;</div></div>');*/
+				upcomingScroll(false);	
+			}
+			return false;	
+		});
+
+	if(jQuery('.upcomingEvent section').height() > 385 ){
+		var upcomingdrag;
+		upcomingScroll(true);		
+		
+	}
+	
+	function upcomingScroll (create){
+		var $section = jQuery('.upcomingEvent section');
+		if (create){
+			var oHeight = $section.height(),
+			sHeight = 385*385/oHeight; 
+			$section.css('height','385px').append('<div id="scrollContainer" class="scrollContainer"><div id ="scrollBlock" class="scrollBlock"></div>');
+			$section.children('.daily-event').addClass('daily-event-scrolled');
+			var $scroll = jQuery('.scrollBlock').css('height', sHeight + 'px');
+			
+			//scroll effect
+			var scrollTrigger = false, oY = $section.offset().top, startY = 0, mouseY = 0;
+			/*
+			function scrollOndrag(o,e){
+				var mT = $scroll.offset().top - oY; 
+				if (mT > 380-sHeight) {mT = 380-sHeight; return false; }
+				if (mT < 0) {mT = 0; return false}
+				$section.scrollTop(mT*oHeight/380);
+			}
+
+			upcomingdrag = new Draggable('scrollBlock',{constraint: 'vertical',starteffect: false,endeffect: false,snap: function(x,y) {
+				return[ x,(y < 380-sHeight) ? (y > 0 ? y : 0) : 380-sHeight ];
+				},onDrag:scrollOndrag});
+			*/
+			
+			jQuery('#scrollBlock').mousedown(function(e){
+				startY = e.pageY;
+				mouseY = startY - $scroll.offset().top;
+				scrollTrigger = true;
+			}).mousemove(function(){
+				jQuery('.page').trigger('mousemove');
+			}).bind('mouseup',function(){
+				scrollTrigger = false;
+			}).bind('mouseleave',function(e){
+				startY = e.pageY;
+				mouseY = startY - $scroll.offset().top;
+			});
+			
+			jQuery('.page').bind('mouseup.upcomingScroll',function(){
+				scrollTrigger = false;
+				jQuery(this).removeClass('disable-select').get(0).onselectstart = function(){return false};
+			}).bind('mousemove.upcomingScroll',function(e){
+				if (scrollTrigger){
+					/*var mT = e.pageY - startY; */
+					var mT = e.pageY-oY-mouseY; 
+					if (Math.abs(e.pageY - startY) > 10){
+						if (mT > 385-sHeight) {mT = 385-sHeight;  }
+						if (mT < 0) {mT = 0; }
+						$scroll.css('margin-top', mT + 'px');
+						$section.scrollTop(mT*oHeight/385);
+						jQuery(this).addClass('disable-select').get(0).onselectstart = function(){return false};
+					}
+					/*if(mT > 0 && mT < 385-sHeight){
+						$scroll.css('margin-top', mT + 'px');
+						$section.scrollTop(mT*oHeight/385);
+					}*/
+				}
+			});
+			
+		}else{
+			/*upcomingdrag.destroy();*/
+			$section.find('#scrollContainer').remove();
+			$section.children('.daily-event').removeClass('daily-event-scrolled');
+			jQuery('.page').unbind('mousemove.upcomingScroll').unbind('mouseup.upcomingScroll');
+		}
+	}
+
+
+//]]>
+</script>    
+</body>
+</html>		
