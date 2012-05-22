@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ZOOM - Neiman marcus</title>
+<style>
+.main{width:940px; padding:0 20px; marign:auto}
+.product-img{position:relative}
+.img-zoom{position:absolute;left:0;top:0;width:938px;height:570px; overflow:hidden;border:1px solid #eee;cursor:pointer}
+.img-zoom-close{width:30px;height:30px;float:right;background:#000;cursor:pointer}
+.img-middle{width:400px}
+.hide{display:none}
+a img{border:0}
+#nm-zoom-gallery{width:50px; position:absolute; top:0; right:0;z-index:99}
+.productimg{width:400px;position:relative}
+</style>
+</head>
+<body style="" >
+<div class="main">
+<div class="productimg">
+	<a href="img/b.jpeg" class="nm-zoom"><img src="img/b.jpeg" alt width="400" /></a>
+	<div id="nm-zoom-gallery">
+		<a href="img/b.jpeg" rel="img/b.jpeg"><img src="img/b.jpeg" alt width="50" /></a>
+		<a href="img/b.jpeg" rel="img/b.jpeg"><img src="img/b.jpeg" alt width="50" /></a>
+	</div>
+</div>
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+
+jQuery(document).ready(function(){
+
+	jQuery('.nm-zoom').NmZoom();
+});	
+
+(function( $ ) {
+  $.fn.NmZoom = function (options) {
+	var settings = $.extend( {
+      'closeStyle'  : 'width:30px;height:30px;float:right;background:#000;cursor:pointer',
+      'holderStyle' : 'display:none;position:absolute;left:0;top:0;z-index:9999;width:938px;height:570px; overflow:hidden;border:1px solid #eee;cursor:pointer',
+	  'wrapperStyle': 'position:relative;z-index:98',
+	  'bigImg' : {'width' : 1200 , 'height' : 1600},
+	  'gallery' : {'open':true, 'id' : 'nm-zoom-gallery'}
+    }, options);
+	
+        // IE6 background image flicker fix
+		try {
+            document.execCommand("BackgroundImageCache", false, true);
+        } catch (e) {}
+		
+        return this.each(function () {
+			var $zoomTrigger = $(this);
+			
+			//init
+			if ($zoomTrigger.parent().attr('id') != 'nm-zoom-wrapper') {
+				$zoomTrigger.wrap('<div id="nm-zoom-wrapper" style="' + settings.wrapperStyle + '"></div>')
+			}
+			
+			var $zoomWrapper = $('#nm-zoom-wrapper').append('<div class="nm-zoom-holder" style="' + settings.holderStyle + '"><div class="nm-zoom-close" style="' + settings.closeStyle + '">&#160;</div></div>');
+			var $zoomHolder = $zoomTrigger.next('.nm-zoom-holder'), 
+				$zoomClose = $zoomHolder.children('.nm-zoom-close');
+			
+			//begin
+			if ( settings.gallery.open ){ 
+				jQuery('#' + settings.gallery.id + ' a').bind('click',function(e){
+					$zoomTrigger.attr('href',jQuery(this).attr('href'))
+						.children('img').attr('src',jQuery(this).attr('rel'));
+					e.preventDefault();	
+				});
+			}
+			
+			$zoomTrigger.click(function(e){
+				$zoomHolder.show().css('background','url(' + $zoomTrigger.attr('href') + ') center center no-repeat');
+				$zoomWrapper.css('z-index','9999')
+				e.preventDefault();
+			});
+			$zoomHolder.bind({
+				'mousemove':function(e){
+					var mouseX = e.pageX - $zoomHolder.offset().left, mouseY = e.pageY - $zoomHolder.offset().top,
+						zoomW = $zoomHolder.width(),zoomH = $zoomHolder.height(),
+						bgX = mouseX * (zoomW - settings.bigImg.width)/zoomW, bgY = mouseY * (zoomH - settings.bigImg.height)/zoomH;
+					$zoomHolder.css('background-position', bgX + 'px ' + bgY + 'px');
+				},
+				'mouseenter':function(){},
+				'mouseleave':function(){}
+				});
+			$zoomClose.click(function(){
+				$zoomHolder.fadeOut();
+				$zoomWrapper.css('z-index','98');
+			});	
+			
+        });       
+    };
+	
+	
+})( jQuery );
+
+//]]>
+</script>    
+</body>
+</html>		
