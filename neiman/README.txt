@@ -14,3 +14,20 @@
 	});
 
 */
+
+2. Nmpopup -- inline popup
+
+/*
+	NmPopup -- How to use:
+	====== JS =======
+	$(document).ready(function(){
+		jQuery('.nmpopup-showproductdetail').NmPopup({
+			'relativeDiv'  : 'body',				  // jQuery selector string
+			'position' : 'left top',                  // same syatx as CSS background-position
+			'closeClass' : 'nmzoom-close',            // setting '' will popup without close button
+			'popupID' : '',                           // jQuery selector string, *required
+		});
+	});
+	====== CSS =======
+	.nmzoom-close {width:30px;height:30px;cursor:pointer;position:absolute; top:0; right:0}
+*/
