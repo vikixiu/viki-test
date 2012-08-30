@@ -1,0 +1,81 @@
+body,html{font-family:Calibri; font-size:10pt; }
+		ul, li{list-style:outside none; padding:0; margin:0}
+		a.disabled{text-decoration:none; color:#888; cursor:default}
+		.hide{display:none}
+		
+		#data{width:1000px; height:700px; position:relative; }
+		.chart{position:absolute; left:0; top:0}
+		#colorlist{margin:10px 0; color:#2f2f2f; text-shadow: #ccc 1px 1px 1px; z-index:999}
+		.color-example{display:inline-block; padding:0 3px; width:50px; text-align:center; margin-right:5px;border-radius:5px;border:2px solid #fff; cursor:pointer;}
+		.color-hide {background:none !important;}
+		.color-example-hideall{background:#666; color:#eee; text-shadow:none}
+		.color-example-hideall.color-hide{border-color:#666; color:#2f2f2f}
+		/*
+		.color-example-default.color-hide{border-color:#9A9CFF; }
+		.color-example-Sally.color-hide{border-color:#9A9CFF; }
+		.color-example-Karen.color-hide{border-color:#F691B2}
+		.color-example-Brandon.color-hide{border-color:#FBE983}
+		.color-example-Jessie.color-hide{border-color:#7BD148}
+		.color-example-Marie.color-hide{border-color:#4986E7}
+		.color-example-Sean.color-hide{border-color:#D06B64}
+		*/
+		#chart-xaixs{margin-top:-10px}
+		.chart-xaxis-label{width:140px; display:inline-block; text-align:center;}
+		.chart-ylaxis-label{height:70px; padding-left:5px}
+		#chart-yr{display:none}
+		#chart-yraixs{text-align:right; width:1000px; position:absolute; top:0; left:0; display:none; }
+		.chart-yraixs-label{padding-right:5px; color:#666;}
+		
+		.event{position:absolute; cursor:pointer; }
+		.event-focus{z-index:999}
+		.salesthru{width:100%; border:2px solid #ccc; border-radius:5px; height:34px; position:relative}
+		.salesthru-sold{height:34px}
+		.salesthru-label{position:absolute; left:0; top:0; padding:2px 0 2px 3px; white-space:nowrap; color:#222; line-height:15px;
+			text-shadow: #ccc 1px 1px 1px}
+		/*	
+		.event-default .salesthru,.color-example-default{background:#9A9CFF;}
+		.event-default .salesthru-sold{background:#585bff;}	
+		.event-Sally .salesthru,.color-example-Sally{background:#9A9CFF;}
+		.event-Sally .salesthru-sold{background:#585bff;}
+		.event-Karen .salesthru,.color-example-Karen{background:#F691B2;}
+		.event-Karen .salesthru-sold{background:#f22568;}
+		.event-Brandon .salesthru,.color-example-Brandon{background:#FBE983;}
+		.event-Brandon .salesthru-sold{background:#fad816;}
+		.event-Jessie .salesthru,.color-example-Jessie{background:#7BD148;}
+		.event-Jessie .salesthru-sold{background:#3d9a06;}
+		.event-Marie .salesthru,.color-example-Marie{background:#4986E7;}
+		.event-Marie .salesthru-sold{background:#04398e;}
+		.event-Sean .salesthru,.color-example-Sean{background:#D06B64;}
+		.event-Sean .salesthru-sold{background:#cf3025;}
+		*/
+		.event-level0 .salesthru,.color-example-level0{background:#2dc42d;}
+		.event-level0 .salesthru-sold{background:#1c7f1c;}	
+		.event-level1 .salesthru,.color-example-level1{background:#6ac42d;}
+		.event-level1 .salesthru-sold{background:#49881e;}
+		.event-level2 .salesthru,.color-example-level2{background:#86c42d;}
+		.event-level2 .salesthru-sold{background:#618d21;}
+		.event-level3 .salesthru,.color-example-level3{background:#9fc42d;}
+		.event-level3 .salesthru-sold{background:#6e881e;}
+		.event-level4 .salesthru,.color-example-level4{background:#c4bb2d;}
+		.event-level4 .salesthru-sold{background:#8c8620;}
+		.event-level5 .salesthru,.color-example-level5{background:#c4942d;}
+		.event-level5 .salesthru-sold{background:#8e6a1c;}
+		.event-level6 .salesthru,.color-example-level6{background:#edab37;}
+		.event-level6 .salesthru-sold{background:#c7902f;}
+		.event-level7 .salesthru,.color-example-level7{background:#ed8d37;}
+		.event-level7 .salesthru-sold{background:#bb6f2b;}
+		.event-level8 .salesthru,.color-example-level8{background:#ed6f37;}
+		.event-level8 .salesthru-sold{background:#bb582c;}
+		.event-level9 .salesthru,.color-example-level9{background:#ed4837;}
+		.event-level9 .salesthru-sold{background:#bf3a2c;}
+		
+		.color-example-level0 .color-hide{border-color:#2dc42d}
+		.color-example-level1 .color-hide{border-color:#6ac42d}
+		.color-example-level2 .color-hide{border-color:#86c42d}
+		.color-example-level3 .color-hide{border-color:#9fc42d}
+		.color-example-level4 .color-hide{border-color:#c4bb2d}
+		.color-example-level5 .color-hide{border-color:#c4942d}
+		.color-example-level6 .color-hide{border-color:#edab37}
+		.color-example-level7 .color-hide{border-color:#ed8d37}
+		.color-example-level8 .color-hide{border-color:#ed6f37}
+		.color-example-level9 .color-hide{border-color:#ed4837}
