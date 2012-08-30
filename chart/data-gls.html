@@ -23,16 +23,11 @@
 		<a id="salesLevel" href="#">By Salse range</a>			
 		<a id="original" class="disabled" href="#">Original position</a>
 		<ul id="colorlist">
-			<li class="color-example color-example-level0">level0</li>
-			<li class="color-example color-example-level1">level1</li>
-			<li class="color-example color-example-level2">level2</li>
-			<li class="color-example color-example-level3">level3</li>
-			<li class="color-example color-example-level4">level4</li>
-			<li class="color-example color-example-level5">level5</li>
-			<li class="color-example color-example-level6">level6</li>
-			<li class="color-example color-example-level7">level7</li>
-			<li class="color-example color-example-level8">level8</li>
-			<li class="color-example color-example-level9">level9</li>
+			<li class="color-example color-example-level0">&lt; 100 k</li>
+			<li class="color-example color-example-level1">100-300 k</li>
+			<li class="color-example color-example-level2">300-600 k</li>
+			<li class="color-example color-example-level3">600 k - 1Mio</li>
+			<li class="color-example color-example-level4">&gt;= 1 Mio</li>
 		</ul>		
 	</div>
 		<div id="data">			
@@ -40,9 +35,9 @@
 			<canvas id="chart-yr" class="chart" width="1000" height="700"></canvas>
 			<ul id="chart-ylaixs"></ul>
 			<ul id="chart-yraixs">
-				<li class="chart-yraixs-label">> 100K</li>
-				<li class="chart-yraixs-label">50K - 100K</li>
-				<li class="chart-yraixs-label">< 50K</li>
+				<li class="chart-yraixs-label"><span>&gt; 100K</span></li>
+				<li class="chart-yraixs-label"><span>50K - 100K</span></li>
+				<li class="chart-yraixs-label"><span>&lt; 50K</span></li>
 			</ul>
 			<ul id="eventlist"></ul>
 		</div>
@@ -316,7 +311,24 @@ function eventTpl (tplStr){
 		//var _merchant = event.merchant ? event.merchant : 'default';	sellableUnit
 		
 		// separate color by sellable_value
-		var _sellableLevel = 'level' + Math.round(event.sellable_value/chartArgs.sellableUnit);
+		var _sellableLevel = '';
+		if ( event.sellable_value < 100000 ){
+			_sellableLevel = 'level0';
+		}else{
+			if ( event.sellable_value < 300000 ){
+				_sellableLevel = 'level1';
+			}else{
+				if ( event.sellable_value < 600000 ){
+					_sellableLevel = 'level2';
+				}else{
+					if ( event.sellable_value < 100000000 ){
+						_sellableLevel = 'level3';
+					}else{
+						_sellableLevel = 'level4';
+					}
+				}
+			}
+		}
 
 		eventStr = eventTpl(eventTemplate, unitLength.x, eTop, eLeft, event.event_name, Math.round(event.value_sell_thru*100,2)+'%',event.event_cat_id,event.salesK,_sellableLevel, event.sold_qty);
 		//colorStr = eventTpl(colorTpl,_sellableLevel);
